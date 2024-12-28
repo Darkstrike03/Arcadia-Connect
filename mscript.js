@@ -1,7 +1,9 @@
-document.getElementById("startMeeting").addEventListener("click", () => {
-    alert("Redirecting to a new meeting...");
-    // Logic to create a new meeting room
+document.getElementById("startMeeting").addEventListener("click", async () => {
+    const response = await fetch("arcadia-connect.railway.internal");
+    const data = await response.json();
+    alert(`Here you go! Share this link with your friends: ${data.link}`);
 });
+
 
 document.getElementById("joinMeeting").addEventListener("click", () => {
     const code = document.getElementById("meetingCode").value.trim();
