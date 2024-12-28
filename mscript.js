@@ -1,5 +1,5 @@
 document.getElementById("startMeeting").addEventListener("click", async () => {
-    const response = await fetch("https://arcadia-connect-production.up.railway.app/new-meeting");
+    const response = await fetch("https://arcadia-connect-production.up.railway.app");
     const data = await response.json();
     alert(`Here you go! Share this link with your friends: ${data.link}`);
 });
