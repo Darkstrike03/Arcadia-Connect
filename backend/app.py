@@ -10,4 +10,5 @@ def new_meeting():
     return jsonify({"link": meeting_link})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)  # Default port
+
