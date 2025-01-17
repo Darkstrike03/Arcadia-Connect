@@ -1,6 +1,6 @@
 document.getElementById("startMeeting").addEventListener("click", async () => {
     try {
-        const response = await fetch("https://arcadia-converse.up.railway.app/new-meeting");
+        const response = await fetch("https://arcadia-connect-production.up.railway.app/new-meeting");
         
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
