@@ -14,7 +14,7 @@ def home():
 def new_meeting():
     # Generate a unique meeting ID
     meeting_id = str(uuid.uuid4())[:8]
-    meeting_link = f"https://arcadia-connect-production.up.railway.app/meet/{meeting_id}"
+    meeting_link = f"https://arcadia-converse.up.railway.app/meet/{meeting_id}"
     
     # Store the meeting ID (for validation purposes)
     meetings[meeting_id] = {"participants": []}
