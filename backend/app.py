@@ -1,17 +1,33 @@
-import os
-from flask import Flask, jsonify
-from flask_cors import CORS
+from flask import Flask, jsonify, request
+import uuid
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for cross-origin requests
 
-@app.route("/new-meeting")
+# Storage for meetings (temporary in-memory storage)
+meetings = {}
+
+@app.route('/')
+def home():
+    return "Arcadia Connect Backend is Running!"
+
+@app.route('/new-meeting', methods=['GET'])
 def new_meeting():
-    import uuid
-    meeting_id = str(uuid.uuid4())
-    meeting_link = f"https://arcadia-connect.vercel.app/meeting/{meeting_id}"
-    return jsonify({"link": meeting_link})
+    # Generate a unique meeting ID
+    meeting_id = str(uuid.uuid4())[:8]
+    meeting_link = f"https://arcadia-connect-production.up.railway.app/meet/{meeting_id}"
+    
+    # Store the meeting ID (for validation purposes)
+    meetings[meeting_id] = {"participants": []}
+    
+    return jsonify({"link": meeting_link, "id": meeting_id})
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Get the port dynamically
-    app.run(debug=True, host="0.0.0.0", port=port)
+@app.route('/meet/<meeting_id>', methods=['GET'])
+def join_meeting(meeting_id):
+    # Check if the meeting exists
+    if meeting_id in meetings:
+        return jsonify({"status": "success", "message": f"Welcome to meeting {meeting_id}!"})
+    else:
+        return jsonify({"status": "error", "message": "Meeting not found"}), 404
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
