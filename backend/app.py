@@ -1,3 +1,7 @@
+import os
+port = int(os.getenv("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
+
 from flask import Flask, jsonify, request
 import uuid
 
