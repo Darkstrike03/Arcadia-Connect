@@ -1,4 +1,4 @@
-const socket = io('https://your-backend.vercel.app'); // Replace with your backend URL
+const socket = io('https://vediocall-five.vercel.app/'); // Replace with your backend URL
 const videoGrid = document.getElementById('videoGrid');
 
 const myPeer = new Peer(undefined, {
