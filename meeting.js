@@ -1,4 +1,4 @@
-const socket = io('https://vediocall-five.vercel.app/'); // Replace with your backend URL
+const socket = io('https://your-backend.vercel.app'); // Replace with your backend URL
 const videoGrid = document.getElementById('videoGrid');
 
 const myPeer = new Peer(undefined, {
@@ -25,18 +25,19 @@ navigator.mediaDevices.getUserMedia({
   });
 
   socket.on('user-connected', userId => {
+    console.log('User connected: ' + userId);
     connectToNewUser(userId, stream);
   });
-});
 
-socket.on('user-disconnected', userId => {
-  if (peers[userId]) peers[userId].close();
-});
+  socket.on('user-disconnected', userId => {
+    if (peers[userId]) peers[userId].close();
+  });
 
-myPeer.on('open', id => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const meetingId = urlParams.get('meetingId');
-  socket.emit('join-room', meetingId, id);
+  myPeer.on('open', id => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const meetingId = urlParams.get('meetingId');
+    socket.emit('join-room', meetingId, id);
+  });
 });
 
 function connectToNewUser(userId, stream) {
